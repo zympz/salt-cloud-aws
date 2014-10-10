@@ -1,0 +1,36 @@
+# /etc/salt/cloud
+
+providers:
+  aws-east-config:
+    # Set up the location of the salt-master.
+    minion:
+      master: {{ salt_master_hostname }}
+
+    # Specify whether to use public or private IP for deploy script.
+    #
+    # Options:
+    #   private_ips - The salt-master is also hosted with EC2
+    #   public_ips - The salt-master is hosted outside of EC2
+    ssh_interface: private_ips
+
+    # Grains that should be added to the minion configuration.
+    grains:
+      node_location: aws_east
+
+    # Set EC2 user access credentials, can not be the root account.
+    id: {{ aws_user_id }}
+    key: '{{ aws_user_key }}'
+
+    # Make sure this key is owned by root with permissions 0400.
+    private_key: {{ aws_private_key_file }}
+    keyname: {{ aws_private_key_name }}
+
+    # Security group to auto-join new machines to, this lets AWS what inbound
+    # and outbound ports should be open.
+    securitygroup: default
+
+    # Configure default region, optional.
+    location: us-east-1
+    availability_zone: us-east-1a
+
+    provider: ec2

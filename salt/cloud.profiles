@@ -1,0 +1,25 @@
+# /etc/salt/cloud.profiles
+
+ubuntu_trusty_east_frontend:
+  # Provider to use for this profile.
+  provider: aws-east-config
+
+  # Amazon Machine Instance ID of the image you want to clone, this can be a
+  # `private` or `public` AMI.
+  #
+  # ami-8a8932e3:
+  #     OS: Ubuntu 14.04 LTS
+  #     Kernel: aki-919dcaf8
+  #     Instance Type: ebs
+  #     Arch: amd64
+  image: ami-8a8932e3
+
+  # Instance size and default type.
+  size: t1.micro
+
+  ssh_interface: private
+
+  # Default ssh user
+  ssh_username: ec2-user
+
+  #
